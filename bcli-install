@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+const cli = require('commander');
+
+cli
+    .option('-l, --list', 'list all options')
+    .option('-a, --all', 'installs all packages')
+    .description('installs packages onto your system')
+    .action(function (env) {
+        if (env.list) {
+            console.log('here are all the programs you can install ...')
+        }
+
+        if(env.all) {
+            console.log('installing all packages')
+        }
+    });
+
+
+cli.parse(process.argv);

@@ -1,0 +1,15 @@
+{
+  "name": "bcli",
+  "version": "1.0.0",
+  "description": "BuildCLI (Buckley)",
+  "main": "index.js",
+  "author": "raz.ali@slalom.com",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^3.0.2",
+    "figlet": "^1.2.4"
+  },
+  "bin": {
+    "bcli": "./index.js"
+  }
+}
