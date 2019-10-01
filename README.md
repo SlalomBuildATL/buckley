@@ -33,9 +33,26 @@ To install all available packages, run `bcli install --all`
 ### Tags
 Packages are organized by tags. To install all recommended packages, run `bcli install --tag recommended`
 
-Tags can be combined for various purposes. If you're going to be doing full-stack development on an cloud-based project, you can do `bcli install --tag frontend,devops,cloud` 
+Tags can be combined for various purposes. E.g. If you're going to be doing full-stack development on an cloud-based project, you can do `bcli install --tag frontend,devops,cloud` to install relevant tools.
 
-Teams can opt to bundle all of their packages under a tag. For example, if you're a developer on the Avalon team,you can install all the packages needed for development on the project by running `bcli install --tag avalon`
+Teams can opt to bundle all of their packages under a tag. For example, if you're a developer on the Avalon team,you can install all the packages needed for development on that project by running `bcli install --tag avalon`
+
+## Contributing
+The CLI is built using Node.js. There is a large variety of powerful tools available for building CLIs in Node.js, and JS skills tend to be more ubiquitous on most teams than bash skills. Even if you're particularly good at bash scripting, you'll find that it's a lot easier to do things in JS that would otherwise be quite painful to accomplish in bash. 
+
+This project, like most, is a perpetual work-in-progress and is intended to be maintained by the collective Build community. 
+Please feel free to make enhancements and improvements as you see fit, and merge directly to master (for now). 
+
+### References
+Here are some useful libraries that are currently (or will soon be) in use in this project. 
+
+- [Commander.js](https://github.com/tj/commander.js/) - a powerful tool for building out command-line interfaces. Provides useful functions for organizing commands, parsing arguments, and outputting help. 
+- [Chalk](https://github.com/chalk/chalk) - A handy text-styling tool
+- [JS Config Store](https://github.com/andrewhayward/js-config-store) - a tool for storing and reading local configs
+- [Figlet](https://www.npmjs.com/package/figlet) - ASCII-based banners
+- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) - A tool for creating command-line prompts
+- [Child Process](https://nodejs.org/api/child_process.html) - A node.js module that provides the ability to execute shell commands and spawn child processes
+
 
 ## Coming Soon
 - Bootstrappers for different kinds of projects/services
