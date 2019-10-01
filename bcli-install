@@ -1,19 +1,36 @@
 #!/usr/bin/env node
 const cli = require('commander');
+const fs = require('fs');
+const _ = require('lodash');
 
 cli
-    .option('-l, --list', 'list all options')
-    .option('-a, --all', 'installs all packages')
-    .description('installs packages onto your system')
-    .action(function (env) {
-        if (env.list) {
-            console.log('here are all the programs you can install ...')
-        }
+  .option('-l, --list', 'list all options')
+  .option('-t, --tags <tagNames>', 'install packages with tags (comma-separated)')
+  .option('-a, --all', 'installs all packages')
+  .description('installs packages onto your system')
+  .action((env) =>  {
+    const config = JSON.parse(fs.readFileSync('install-config.json', 'utf8'));
 
-        if(env.all) {
-            console.log('installing all packages')
-        }
-    });
+    if (env.list) {
+      console.table(config.packages.map(package => _.pick(package, ['name', 'description', 'tags'])));
+    } else {
+      let installablePackages = [];
+
+      if(env.all) {
+        installablePackages = config.packages;
+      }
+
+      if(env.tags) {
+        const requiredTags = env.tags.split(',');
+        installablePackages = config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0)
+      }
+
+      console.log('installing ');
+      console.log(installablePackages);
+
+    }
+
+  });
 
 
 cli.parse(process.argv);

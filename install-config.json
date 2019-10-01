@@ -1,0 +1,33 @@
+{
+  "packages": [
+    {
+      "id": 0,
+      "name": "HomeBrew",
+      "version": "latest",
+      "script": "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"",
+      "test": "which brew",
+      "description": "The missing package manager for macOS (or Linux)",
+      "version": "latest",
+      "tags": ["recommended"]
+    },
+    {
+      "id": 1,
+      "name": "iTerm2",
+      "version": "latest",
+      "script": "brew cask install iterm2",
+      "description": "Feature-rich alternative to Terminal",
+      "prerequisites": ["HomeBrew"],
+      "version": "latest"
+    },
+    {
+      "id": 2,
+      "name": "Flycut",
+      "version": "latest",
+      "script": "brew cask install flycut",
+      "description": "Clipboard manager - copy multiple items to clipboard, cycle through the history",
+      "version": "latest",
+      "prerequisites": ["HomeBrew"],
+      "tags": ["recommended"]
+    }
+  ]
+}
