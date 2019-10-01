@@ -31,11 +31,11 @@ For a list of available packages run `bcli install --list`
 To install all available packages, run `bcli install --all`
 
 ### Tags
-Packages are organized by tags. To install all recommended packages, run `bcli install --tags recommended`
+Packages are organized by tags. To install all recommended packages, run `bcli install --tag recommended`
 
-Tags can be combined for various purposes. If you're going to be doing full-stack development on an cloud-based project, you can do `bcli install --tags frontend,devops,cloud` 
+Tags can be combined for various purposes. If you're going to be doing full-stack development on an cloud-based project, you can do `bcli install --tag frontend,devops,cloud` 
 
-Teams can opt to bundle all of their packages under a tag. For example, if you're a developer on the Avalon team,you can install all the packages needed for development on the project by running `bcli install --tags avalon`
+Teams can opt to bundle all of their packages under a tag. For example, if you're a developer on the Avalon team,you can install all the packages needed for development on the project by running `bcli install --tag avalon`
 
 ## Coming Soon
 - Bootstrappers for different kinds of projects/services

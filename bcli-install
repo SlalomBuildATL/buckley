@@ -8,7 +8,7 @@ const path = require('path');
 
 cli
   .option('-l, --list', 'list all options')
-  .option('-t, --tags <tagNames>', 'install packages with tags (comma-separated)')
+  .option('-t, --tag <tagNames>', 'install packages with tags (comma-separated)')
   .option('-a, --all', 'installs all packages')
   .description('installs packages onto your system')
   .action((env) => {
@@ -23,8 +23,8 @@ cli
         installablePackages = config.packages;
       }
 
-      if (env.tags) {
-        const requiredTags = env.tags.split(',');
+      if (env.tag) {
+        const requiredTags = env.tag.split(',');
         installablePackages = config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0)
       }
 
