@@ -13,10 +13,14 @@ cli
 
 
 function figletPrint(text) {
-    let header = figlet.textSync('Buckley (Build CLI)', {
-        horizontalLayout: 'full',
+    let header = figlet.textSync('Buckley', {
+        horizontalLayout: 'default',
         verticalLayout: 'default'
     });
+    const subtitle = `########################### Build CLI (bcli)
+    \n
+    `
+    const banner = `${header}\n${subtitle}`
 
-    return `${header}\n` 
+    return banner;
 };
