@@ -2,13 +2,12 @@
 const cli = require('commander');
 const figlet = require('figlet');
 
-
 if (!process.argv.slice(2).length) {
     cli.outputHelp(figletPrint);
 }
 
 cli
-    .command('install', 'install one or more packages to your workstation')
+    .command('install', 'install one or more packages to your workstation', {executableFile: 'install/bcli-install'})
     .parse(process.argv);
 
 
