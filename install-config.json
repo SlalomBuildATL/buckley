@@ -3,7 +3,7 @@
     {
       "name": "HomeBrew",
       "script": "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"",
-      "testScript": "brew --version",
+      "testScript": "command -v brew",
       "description": "The missing package manager for macOS (or Linux)",
       "tags": [
         "essential",
@@ -20,6 +20,9 @@
       "description": "Feature-rich alternative to Terminal",
       "prerequisites": [
         "HomeBrew"
+      ],
+      "tags": [
+        "shell"
       ]
     },
     {
@@ -34,7 +37,24 @@
         "HomeBrew"
       ],
       "tags": [
-        "recommended"
+        "recommended",
+        "desktop"
+      ]
+    },
+    {
+      "name": "Spectacle",
+      "testScript": "ls /Applications/Spectacle.app",
+      "command": {
+        "cmd": "brew",
+        "args": ["cask", "install", "spectacle"]
+      },
+      "description": "Window manager for positioning and sizing windows with hotkeys",
+      "prerequisites": [
+        "HomeBrew"
+      ],
+      "tags": [
+        "recommended",
+        "desktop"
       ]
     },
     {
@@ -59,11 +79,21 @@
     },
     {
       "name": "wget",
-      "testScript": "which wget",
+      "testScript": "command -v wget",
       "script": "brew install wget",
       "description": "Command-line based file downloader – nicer API than cURL, and useful for scripting",
       "tags": [
         "devops"
+      ]
+    },
+    {
+      "name": "autojump",
+      "testScript": "command -v j",
+      "script": "brew install autojump",
+      "description": "Very handy command-line tool for navigating to directories with minimal typing",
+      "tags": [
+        "shell",
+        "recommended"
       ]
     },
     {

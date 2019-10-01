@@ -14,7 +14,7 @@ cli
 
 function figletPrint(text) {
     let header = figlet.textSync('Buckley (Build CLI)', {
-        horizontalLayout: 'default',
+        horizontalLayout: 'full',
         verticalLayout: 'default'
     });
 
