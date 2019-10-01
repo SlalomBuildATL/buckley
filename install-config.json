@@ -3,37 +3,69 @@
     {
       "name": "HomeBrew",
       "script": "/usr/bin/ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"",
-      "test": "which brew",
+      "testScript": "brew --version",
       "description": "The missing package manager for macOS (or Linux)",
-      "tags": ["recommended"]
+      "tags": [
+        "essential",
+        "recommended"
+      ]
     },
     {
       "name": "iTerm2",
-      "script": "brew cask install iterm2",
+      "command": {
+        "cmd": "brew",
+        "args": ["cask", "install", "iterm2"]
+      },
       "description": "Feature-rich alternative to Terminal",
-      "prerequisites": ["HomeBrew"]
+      "prerequisites": [
+        "HomeBrew"
+      ]
     },
-    {
     {
       "name": "Flycut",
-      "script": "brew cask install flycut",
+      "command": {
+        "cmd": "brew",
+        "args": ["cask", "install", "flycut"]
+      },
       "description": "Clipboard manager - copy multiple items to clipboard, cycle through the history",
-      "prerequisites": ["HomeBrew"],
-      "tags": ["recommended"]
+      "prerequisites": [
+        "HomeBrew"
+      ],
+      "tags": [
+        "recommended"
+      ]
     },
+    {
       "name": "Janus",
       "script": "curl -L https://bit.ly/janus-bootstrap | bash",
-      "description": "Vim distribution that comes packaged with several useful plugins and themes. Handy if you're a vim user"
+      "testScript": "ls ~/.vim/janus",
+      "description": "Vim distribution that comes packaged with several useful plugins and themes. Handy if you're a vim user",
+      "tags": [
+        "test",
+        "shell"
+      ]
     },
     {
       "name": "nvm",
       "script": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash",
-      "description": "Node Version Manager. De-facto standard version manager for NodeJS. Other alternatives are n or fnm, each of which have their advantages."
+      "description": "Node Version Manager. De-facto standard version manager for NodeJS. Other alternatives are n or fnm, each of which have their advantages.",
+      "tags": [
+        "frontend"
+      ]
     },
     {
       "name": "wget",
       "script": "brew install wget",
-      "description": "Command-line based file downloader – nicer API than cURL, and useful for scripting"
+      "description": "Command-line based file downloader – nicer API than cURL, and useful for scripting",
+      "tags": [
+        "devops"
+      ]
+    },
+    {
+      "name": "testPackage",
+      "script": "echo foo",
+      "description": "test pacakge",
+      "tags": ["test"]
     }
   ]
 }
