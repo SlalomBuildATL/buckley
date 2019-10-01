@@ -11,6 +11,21 @@
       ]
     },
     {
+      "name": "VSCode",
+      "command": {
+        "cmd": "brew",
+        "args": ["cask", "install", "visual-studio-code"]
+      },
+      "description": "Free, feature-rich, extensible code-editor",
+      "prerequisites": [
+        "HomeBrew"
+      ],
+      "tags": [
+        "recommended",
+        "ide"
+      ]
+    },
+    {
       "name": "iTerm2",
       "testScript": "ls /Applications/iTerm.app",
       "command": {
