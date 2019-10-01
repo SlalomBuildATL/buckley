@@ -88,12 +88,21 @@
     },
     {
       "name": "autojump",
-      "testScript": "command -v j",
+      "testScript": "command -v autojump",
       "script": "brew install autojump",
       "description": "Very handy command-line tool for navigating to directories with minimal typing",
       "tags": [
         "shell",
         "recommended"
+      ]
+    },
+    {
+      "name": "oh-my-zsh",
+      "testScript": "ls ~/.oh-my-zsh",
+      "script": "sh -c \"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)\"",
+      "description": "Zsh distribution that comes packaged with several useful plugins and themes. Replaces bash, or whatever your default shell is.",
+      "tags": [
+        "shell"
       ]
     },
     {
