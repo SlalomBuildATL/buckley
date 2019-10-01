@@ -12,6 +12,7 @@
     },
     {
       "name": "iTerm2",
+      "testScript": "ls /Applications/iTerm.app",
       "command": {
         "cmd": "brew",
         "args": ["cask", "install", "iterm2"]
@@ -23,6 +24,7 @@
     },
     {
       "name": "Flycut",
+      "testScript": "ls /Applications/Flycut.app",
       "command": {
         "cmd": "brew",
         "args": ["cask", "install", "flycut"]
@@ -47,14 +49,17 @@
     },
     {
       "name": "nvm",
+      "testScript": "ls ~/.nvm",
       "script": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash",
       "description": "Node Version Manager. De-facto standard version manager for NodeJS. Other alternatives are n or fnm, each of which have their advantages.",
       "tags": [
+        "test",
         "frontend"
       ]
     },
     {
       "name": "wget",
+      "testScript": "which wget",
       "script": "brew install wget",
       "description": "Command-line based file downloader – nicer API than cURL, and useful for scripting",
       "tags": [
