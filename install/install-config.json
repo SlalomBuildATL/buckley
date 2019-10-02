@@ -11,6 +11,19 @@
       ]
     },
     {
+      "name": "Chrome",
+      "command": {
+        "cmd": "brew",
+        "args": ["cask", "install", "google-chrome"]
+      },
+      "testScript": "ls /Applications/Google Chrome.app",
+      "description": "De-facto standard for Web Browsing",
+      "tags": [
+        "essential",
+        "recommended"
+      ]
+    },
+    {
       "name": "VSCode",
       "command": {
         "cmd": "brew",
