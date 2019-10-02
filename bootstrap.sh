@@ -21,7 +21,7 @@ function install_buckley() {
     git clone https://github.com/FooBarRaz/buckley.git
     cd buckley
     npm install -g .
-    echo "Buckley was successfully installed. Please use `bcli install --tags recommended` to install recommended packages"
+    echo "Buckley was successfully installed. Please use 'bcli install --tag recommended' to install recommended packages"
 
 }
 
