@@ -24,17 +24,21 @@ cli
         installablePackages = config.packages;
       }
 
-      if(env.name) {
-        const requiredNames = env.name.split(',');
-        installablePackages = config.packages.filter(package => requiredNames.inccludes(pacakge.name))
+      if (env.name) {
+        const requiredNames = env.name.split(',').map(requiredName => requiredName.toLowerCase());
+        installablePackages = installablePackages.concat(
+          config.packages
+          .filter(package => 
+            requiredNames
+            .includes(package.name.toLowerCase())))
       }
 
       if (env.tag) {
         const requiredTags = env.tag.split(',');
-        installablePackages = config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0)
+        installablePackages = installablePackages.concat(config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0))
       }
 
-      installablePackages.forEach(installPackage);
+      _.uniq(installablePackages).forEach(installPackage);
     }
 
   });
