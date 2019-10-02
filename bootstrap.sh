@@ -28,6 +28,9 @@ function install_buckley() {
 #check for npm installation
 if ! command -v npm; then
     install_node
+fi
+
+if ! command -v bcli; then
     install_buckley
 fi
 
