@@ -2,94 +2,110 @@
 const cli = require('commander');
 const fs = require('fs');
 const _ = require('lodash');
-const { exec, execSync, spawn, spawnSync } = require('child_process');
+const {exec, execSync, spawn, spawnSync} = require('child_process');
 const chalk = require('chalk');
 const path = require('path');
 
-cli
-  .option('-l, --list', 'list all options')
-  .option('-t, --tag <tagNames>', 'install packages with tags (comma-separated)')
-  .option('-n, --name <names>', 'install packages by name (case-insensitive, comma-separated)')
-  .option('-a, --all', 'installs all packages')
-  .description('installs packages onto your system')
-  .action((env) => {
-    const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'install-config.json'), 'utf8'));
+function listPackages(packages) {
+    console.table(packages.map(package => _.pick(package, ['name', 'description', 'tags'])));
+}
 
-    if (env.list) {
-      console.table(config.packages.map(package => _.pick(package, ['name', 'description', 'tags'])));
-    } else {
-      let installablePackages = [];
+function findMatchingPackages(allPackages, names) {
+    const requiredNames = names.map(requiredName => requiredName.toLowerCase());
 
-      if (env.all) {
-        installablePackages = config.packages;
-      }
-
-      if (env.name) {
-        const requiredNames = env.name.split(',').map(requiredName => requiredName.toLowerCase());
-        installablePackages = installablePackages.concat(
-          config.packages
-          .filter(package => 
+    let matchingPackages = allPackages
+        .filter(package =>
             requiredNames
-            .includes(package.name.toLowerCase())))
-      }
+                .includes(package.name.toLowerCase()));
+    return matchingPackages;
+}
 
-      if (env.tag) {
-        const requiredTags = env.tag.split(',');
-        installablePackages = installablePackages.concat(config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0))
-      }
+cli
+    .option('-l, --list', 'list all options')
+    .option('-t, --tag <tagNames>', 'install packages with tags (comma-separated)')
+    .option('-n, --names <names>', 'install packages by name (case-insensitive, comma-separated)')
+    .option('-a, --all', 'installs all packages')
+    .option('-d, --dry', 'do a dry-run without installing anything')
+    .description('installs packages onto your system')
+    .action((env) => {
+        const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'install-config.json'), 'utf8'));
 
-      _.uniq(installablePackages).forEach(installPackage);
-    }
+        if (env.list) {
+            listPackages(config.packages);
+        } else {
+            let installablePackages = [];
 
-  });
+            if (env.all) {
+                installablePackages = config.packages;
+            }
+
+            if (!!env.names) {
+                let matchingPackages = findMatchingPackages(config.packages, env.names.split(','));
+
+                installablePackages = installablePackages.concat(matchingPackages)
+            }
+
+            if (env.tag) {
+                const requiredTags = env.tag.split(',');
+                installablePackages = installablePackages.concat(config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0))
+            }
+
+            installablePackages = _.uniq(installablePackages);
+
+            console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
+            if (!env.dry) {
+                installablePackages.forEach(installPackage);
+            }
+        }
+    });
 
 function installPackage(package) {
-  if (isInstalled(package)) {
-    console.log(chalk.yellow.bold(`${package.name} is already installed`));
-  } else {
-    const prefix = `install:${package.name}`;
-    const {cmd, args} = getSpawnCommand(package);
-    const proc = spawn(cmd, args);
+    if (isInstalled(package)) {
+        console.log(chalk.yellow.bold(`${package.name} is already installed`));
+    } else {
+        const prefix = `install:${package.name}`;
+        const {cmd, args} = getSpawnCommand(package);
+        const proc = spawn(cmd, args);
 
-    proc.stdout.on('data', (data) => {
-      console.log(`${chalk.blue.bold(prefix)}::${data}`);
-    });
-    
-    proc.stderr.on('data', (data) => {
-      console.error(`${chalk.red.bold(prefix)}::${data}`);
-    });
-    
-    proc.on('close', (code) => {
-      if (code === 0) {
-        console.log(`${chalk.green.bold(prefix)}::Installation successful`)
-      } else {
-        console.error(`${chalk.red.bold(prefix)}::Installation failed`)
-      }
-    });
-  }
+        proc.stdout.on('data', (data) => {
+            console.log(`${chalk.blue.bold(prefix)}::${data}`);
+        });
+
+        proc.stderr.on('data', (data) => {
+            console.error(`${chalk.red.bold(prefix)}::${data}`);
+        });
+
+        proc.on('close', (code) => {
+            if (code === 0) {
+                console.log(`${chalk.green.bold(prefix)}::Installation successful`)
+            } else {
+                console.error(`${chalk.red.bold(prefix)}::Installation failed`)
+            }
+        });
+    }
 }
 
 function isInstalled(package) {
-  if (package.testScript) {
-    const result = spawnSync(package.testScript, {shell:true})
-    return result.status === 0;
-  }
-  if (package.testCommand) {
-    const {cmd, args} = package.testCommand;
-    return spawnSync(cmd, args, {shell:true}).status === 0;
-  }
-  return false;
+    if (package.testScript) {
+        const result = spawnSync(package.testScript, {shell: true})
+        return result.status === 0;
+    }
+    if (package.testCommand) {
+        const {cmd, args} = package.testCommand;
+        return spawnSync(cmd, args, {shell: true}).status === 0;
+    }
+    return false;
 };
 
 function getSpawnCommand(package) {
-  if(package.command) {
-    return package.command;
-  } else if(package.script) {
-    return {
-      cmd: 'sh',
-      args: ['-c', package.script]
+    if (package.command) {
+        return package.command;
+    } else if (package.script) {
+        return {
+            cmd: 'sh',
+            args: ['-c', package.script]
+        }
     }
-  }
 
 }
 

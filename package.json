@@ -13,5 +13,8 @@
   },
   "bin": {
     "bcli": "./index.js"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }

@@ -30,7 +30,7 @@
         "args": ["cask", "install", "visual-studio-code"]
       },
       "description": "Free, feature-rich, extensible code-editor",
-      "prerequisites": [
+      "dependencies": [
         "HomeBrew"
       ],
       "tags": [
@@ -46,7 +46,7 @@
         "args": ["cask", "install", "iterm2"]
       },
       "description": "Feature-rich alternative to Terminal",
-      "prerequisites": [
+      "dependencies": [
         "HomeBrew"
       ],
       "tags": [
@@ -61,7 +61,7 @@
         "args": ["cask", "install", "flycut"]
       },
       "description": "Clipboard manager - copy multiple items to clipboard, cycle through the history",
-      "prerequisites": [
+      "dependencies": [
         "HomeBrew"
       ],
       "tags": [
@@ -77,7 +77,7 @@
         "args": ["cask", "install", "spectacle"]
       },
       "description": "Window manager for positioning and sizing windows with hotkeys",
-      "prerequisites": [
+      "dependencies": [
         "HomeBrew"
       ],
       "tags": [

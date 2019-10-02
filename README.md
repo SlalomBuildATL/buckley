@@ -25,6 +25,8 @@ Once `bcli` is installed, you can run `bcli --help` for a list of available comm
 # Features
 ## Workstation Setup (`bcli install`)
 Buckley has a library of useful tools and packages that can be easily installed on your workstation via the command line.
+For help with commands, run `bcli install --help`
+
 ### Usage
 For a list of available packages run `bcli install --list`
 
