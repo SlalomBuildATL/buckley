@@ -33,11 +33,11 @@ For a list of available packages run `bcli install --list`
 To install all available packages, run `bcli install --all`
 
 ### Tags
-Packages are organized by tags. To install all recommended packages, run `bcli install --tag recommended`
+Packages are organized by tags. To install all recommended packages, run `bcli install --tags recommended`
 
-Tags can be combined for various purposes. E.g. If you're going to be doing full-stack development on an cloud-based project, you can do `bcli install --tag frontend,devops,cloud` to install relevant tools.
+Tags can be combined for various purposes. E.g. If you're going to be doing full-stack development on an cloud-based project, you can do `bcli install --tags frontend,devops,cloud` to install relevant tools.
 
-Teams can opt to bundle all of their packages under a tag. For example, if you're a developer on the Avalon team,you can install all the packages needed for development on that project by running `bcli install --tag avalon`
+Teams can opt to bundle all of their packages under a tag. For example, if you're a developer on the Avalon team,you can install all the packages needed for development on that project by running `bcli install --tags avalon`
 
 ## Contributing
 The CLI is built using Node.js. There is a large variety of powerful tools available for building CLIs in Node.js, and JS skills tend to be more ubiquitous on most teams than bash skills. Even if you're particularly good at bash scripting, you'll find that it's a lot easier to do things in JS that would otherwise be quite painful to accomplish in bash. 

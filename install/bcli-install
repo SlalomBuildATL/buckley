@@ -22,7 +22,7 @@ function findMatchingPackages(allPackages, names) {
 
 cli
     .option('-l, --list', 'list all options')
-    .option('-t, --tag <tagNames>', 'install packages with tags (comma-separated)')
+    .option('-t, --tags <tagNames>', 'install packages with tags (comma-separated)')
     .option('-n, --names <names>', 'install packages by name (case-insensitive, comma-separated)')
     .option('-a, --all', 'installs all packages')
     .option('-d, --dry', 'do a dry-run without installing anything')
@@ -45,8 +45,8 @@ cli
                 installablePackages = installablePackages.concat(matchingPackages)
             }
 
-            if (env.tag) {
-                const requiredTags = env.tag.split(',');
+            if (env.tags) {
+                const requiredTags = env.tags.split(',');
                 installablePackages = installablePackages.concat(config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0))
             }
 

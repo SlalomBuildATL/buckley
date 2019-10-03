@@ -132,12 +132,6 @@
       "tags": [
         "shell"
       ]
-    },
-    {
-      "name": "testPackage",
-      "script": "echo foo",
-      "description": "test pacakge",
-      "tags": ["test"]
     }
   ]
 }
