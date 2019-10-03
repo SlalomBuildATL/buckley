@@ -3,6 +3,7 @@ const _ = require('lodash');
 const {spawn, spawnSync} = require('child_process');
 const chalk = require('chalk');
 const path = require('path');
+const packageConfig = require('./install-config');
 
 function listPackages(packages) {
     console.table(packages.map(pkg => _.pick(pkg, ['name', 'description', 'tags'])));
@@ -20,27 +21,24 @@ function findMatchingPackages(allPackages, names) {
 
 
 function action(env) {
-    let text = fs.readFileSync(path.join(__dirname, 'install-config.json'), 'utf8');
-    const config = JSON.parse(text);
-
     if (env.list) {
-        listPackages(config.packages);
+        listPackages(packageConfig.packages);
     } else {
         let installablePackages = [];
 
         if (env.all) {
-            installablePackages = config.packages;
+            installablePackages = packageConfig.packages;
         }
 
         if (!!env.names) {
-            let matchingPackages = findMatchingPackages(config.packages, env.names.split(','));
+            let matchingPackages = findMatchingPackages(packageConfig.packages, env.names.split(','));
 
             installablePackages = installablePackages.concat(matchingPackages)
         }
 
         if (env.tags) {
             const requiredTags = env.tags.split(',');
-            installablePackages = installablePackages.concat(config.packages.filter(pkg => _.intersection(pkg.tags, requiredTags).length > 0))
+            installablePackages = installablePackages.concat(packageConfig.packages.filter(pkg => _.intersection(pkg.tags, requiredTags).length > 0))
         }
 
         installablePackages = _.uniq(installablePackages);
