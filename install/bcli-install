@@ -1,25 +1,8 @@
 #!/usr/bin/env node
-const cli = require('commander');
-const fs = require('fs');
-const _ = require('lodash');
-const {exec, execSync, spawn, spawnSync} = require('child_process');
-const chalk = require('chalk');
-const path = require('path');
+const commander = require('commander');
+const { action } = require('./packageInstaller');
 
-function listPackages(packages) {
-    console.table(packages.map(package => _.pick(package, ['name', 'description', 'tags'])));
-}
-
-function findMatchingPackages(allPackages, names) {
-    const requiredNames = names.map(requiredName => requiredName.toLowerCase());
-
-    let matchingPackages = allPackages
-        .filter(package =>
-            requiredNames
-                .includes(package.name.toLowerCase()));
-    return matchingPackages;
-}
-
+const cli = new commander.Command();
 cli
     .option('-l, --list', 'list all options')
     .option('-t, --tags <tagNames>', 'install packages with tags (comma-separated)')
@@ -27,87 +10,7 @@ cli
     .option('-a, --all', 'installs all packages')
     .option('-d, --dry', 'do a dry-run without installing anything')
     .description('installs packages onto your system')
-    .action((env) => {
-        const config = JSON.parse(fs.readFileSync(path.join(__dirname, 'install-config.json'), 'utf8'));
-
-        if (env.list) {
-            listPackages(config.packages);
-        } else {
-            let installablePackages = [];
-
-            if (env.all) {
-                installablePackages = config.packages;
-            }
-
-            if (!!env.names) {
-                let matchingPackages = findMatchingPackages(config.packages, env.names.split(','));
-
-                installablePackages = installablePackages.concat(matchingPackages)
-            }
-
-            if (env.tags) {
-                const requiredTags = env.tags.split(',');
-                installablePackages = installablePackages.concat(config.packages.filter(package => _.intersection(package.tags, requiredTags).length > 0))
-            }
-
-            installablePackages = _.uniq(installablePackages);
-
-            console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
-            if (!env.dry) {
-                installablePackages.forEach(installPackage);
-            }
-        }
-    });
-
-function installPackage(package) {
-    if (isInstalled(package)) {
-        console.log(chalk.yellow.bold(`${package.name} is already installed`));
-    } else {
-        const prefix = `install:${package.name}`;
-        const {cmd, args} = getSpawnCommand(package);
-        const proc = spawn(cmd, args);
-
-        proc.stdout.on('data', (data) => {
-            console.log(`${chalk.blue.bold(prefix)}::${data}`);
-        });
-
-        proc.stderr.on('data', (data) => {
-            console.error(`${chalk.red.bold(prefix)}::${data}`);
-        });
-
-        proc.on('close', (code) => {
-            if (code === 0) {
-                console.log(`${chalk.green.bold(prefix)}::Installation successful`)
-            } else {
-                console.error(`${chalk.red.bold(prefix)}::Installation failed`)
-            }
-        });
-    }
-}
-
-function isInstalled(package) {
-    if (package.testScript) {
-        const result = spawnSync(package.testScript, {shell: true})
-        return result.status === 0;
-    }
-    if (package.testCommand) {
-        const {cmd, args} = package.testCommand;
-        return spawnSync(cmd, args, {shell: true}).status === 0;
-    }
-    return false;
-};
-
-function getSpawnCommand(package) {
-    if (package.command) {
-        return package.command;
-    } else if (package.script) {
-        return {
-            cmd: 'sh',
-            args: ['-c', package.script]
-        }
-    }
-
-}
+    .action(action);
 
 cli.parse(process.argv);
 
