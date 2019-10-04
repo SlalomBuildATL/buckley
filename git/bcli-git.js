@@ -8,6 +8,7 @@ cli
     .command('clone')
     .description('clones repos defined for your project')
     .option('-p, --project <name>', 'name of project')
+    .option('-d, --dir <dirNamh>', 'absolute path to directory')
     .action(cloneRepos);
 
 
