@@ -3,7 +3,7 @@
   "targets": {
     "Android": {
       "scriptingBackend": 1,
-      "targetArchitectures": 7,
+      "targetArchitectures": ["ARM64"],
       "targetApi": 28
     },
     "iOS": {

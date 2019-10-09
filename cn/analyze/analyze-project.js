@@ -1,7 +1,8 @@
-const { verifyAndroid: checkAndroidScriptingBackend, verifyIOS: checkIOSScriptingBackend } = require('./check-scripting-backend');
+const { verifyScriptingBackend } = require('./check-scripting-backend');
 const { projectConfig, targets } = require('../cn-remediation-config.json');
 const { readConfigFile } = require('./utils');
 const checkScriptingBackend = require('./check-scripting-backend');
+const { verifyAndroidTargetArchitecture } = require('./check-target-architecture');
 
 function getPlayerSettings() {
     let playerSettings;
@@ -18,7 +19,8 @@ module.exports = {
     analyzeProject: (env) => {
         const playerSettings = getPlayerSettings();
 
-        checkAndroidScriptingBackend(playerSettings, targets.Android);
-        checkIOSScriptingBackend(playerSettings, targets.iOS);
+        verifyScriptingBackend(playerSettings, 'Android', targets.Android);
+        verifyScriptingBackend(playerSettings, 'iOS', targets.Android);
+        verifyAndroidTargetArchitecture(playerSettings, targets.Android)
     }
 };

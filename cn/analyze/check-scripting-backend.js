@@ -1,9 +1,6 @@
 const chalk = require('chalk');
-const remediationConfig = require('../cn-remediation-config.json');
-const {readConfigFile} = require('./utils');
 
 const scriptingBackends = {0: 'Mono', 1: 'IL2CPP'};
-const platforms = ['Android', 'iOS'];
 
 function getScriptingBackend(playerSettings, platform) {
     return scriptingBackends[playerSettings.scriptingBackend[platform]];
@@ -20,16 +17,8 @@ function verifyScriptingBackend(playerSettings, platform, target) {
     return true;
 }
 
-function verifyAndroid(playerSettings, target) {
-    return verifyScriptingBackend(playerSettings, 'Android', target);
-}
 
-function verifyIOS(playerSettings, target) {
-    return verifyScriptingBackend(playerSettings, 'iOS', target);
-
-}
-
-module.exports = {verifyAndroid, verifyIOS};
+module.exports = {verifyScriptingBackend};
 
 
 
