@@ -4,6 +4,7 @@ const {readConfigFile} = require('./utils');
 const checkScriptingBackend = require('./check-scripting-backend');
 const {verifyAndroidTargetArchitecture} = require('./check-target-architecture');
 const {verifyAbsenceOfFiles} = require('./verify-absence-of-files');
+const { verifyAndroidTargetAPI } = require('./check-android-target-api');
 const find = require('find');
 const Promise = require('promise');
 
@@ -32,6 +33,7 @@ module.exports = {
             verifyScriptingBackend(playerSettings, 'Android', targets.Android);
             verifyScriptingBackend(playerSettings, 'iOS', targets.Android);
             verifyAndroidTargetArchitecture(playerSettings, targets.Android);
+            verifyAndroidTargetAPI(playerSettings, targets.Android);
             verifyAbsenceOfFiles(/upsight/i);
             verifyAbsenceOfFiles(/playhaven/i);
             verifyAbsenceOfFiles(/kochava/i);
