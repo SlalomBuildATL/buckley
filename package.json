@@ -10,6 +10,7 @@
     "commander": "^3.0.2",
     "figlet": "^1.2.4",
     "find": "^0.3.0",
+    "inquirer": "^7.0.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "nodegit": "^0.26.2",
