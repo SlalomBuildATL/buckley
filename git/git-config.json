@@ -1,4 +1,21 @@
 {
+  "aliases" : [
+    {
+      "action": "commit",
+      "aliases": ["ci", "cm"],
+      "description": "Record changes to the repository"
+    },
+    {
+      "action": "diff --cached",
+      "aliases": ["dc", "ds"],
+      "description": "Show changes staged for commit (alias for --staged)"
+    },
+    {
+      "action": "log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'",
+      "aliases": ["lol"],
+      "description": "Pretty print logs in one line"
+    }
+  ],
   "projects": [
     {
       "name": "bench",
