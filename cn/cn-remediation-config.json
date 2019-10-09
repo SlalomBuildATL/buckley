@@ -6,7 +6,7 @@
       "branch": "develop"
     }
   ],
-  "projectConfig": "ProjectSettings/ProjectSettings.asset",
+  "projectConfig": "ProjectSettings.asset",
   "targets": {
     "Android": {
       "scriptingBackend": 1,
