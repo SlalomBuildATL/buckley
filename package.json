@@ -9,7 +9,9 @@
     "chalk": "^2.4.2",
     "commander": "^3.0.2",
     "figlet": "^1.2.4",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
+    "node-yaml": "^4.0.1",
     "nodegit": "^0.26.2"
   },
   "bin": {
