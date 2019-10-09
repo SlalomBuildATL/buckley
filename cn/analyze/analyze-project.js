@@ -3,6 +3,7 @@ const { projectConfig, targets } = require('../cn-remediation-config.json');
 const { readConfigFile } = require('./utils');
 const checkScriptingBackend = require('./check-scripting-backend');
 const { verifyAndroidTargetArchitecture } = require('./check-target-architecture');
+const { verifyAbsenceOfFiles } = require('./verify-absence-of-files');
 
 function getPlayerSettings() {
     let playerSettings;
@@ -21,6 +22,10 @@ module.exports = {
 
         verifyScriptingBackend(playerSettings, 'Android', targets.Android);
         verifyScriptingBackend(playerSettings, 'iOS', targets.Android);
-        verifyAndroidTargetArchitecture(playerSettings, targets.Android)
+        verifyAndroidTargetArchitecture(playerSettings, targets.Android);
+        verifyAbsenceOfFiles(/upsight/i);
+        verifyAbsenceOfFiles(/playhaven/i);
+        verifyAbsenceOfFiles(/kochava/i);
+        verifyAbsenceOfFiles(/comscore/i);
     }
 };

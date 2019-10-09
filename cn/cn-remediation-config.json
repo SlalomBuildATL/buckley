@@ -1,4 +1,11 @@
 {
+  "games": [
+    {
+      "name": "Just Another Regular Arcade",
+      "git": "https://github.com/turnercode/cn-games_regular-show_jara",
+      "branch": "develop"
+    }
+  ],
   "projectConfig": "ProjectSettings/ProjectSettings.asset",
   "targets": {
     "Android": {

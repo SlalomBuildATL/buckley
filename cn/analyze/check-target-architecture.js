@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+
 const architectures = {
     0: ['None'],
     1: ['ARMv7'],
@@ -8,7 +9,7 @@ const architectures = {
     5: ['ARMv7', 'x86'],
     6: ['ARM64', 'x86'],
     7: ['ARM64', 'x86']
-}
+};
 
 module.exports = {
     verifyAndroidTargetArchitecture: (playerSettings, targets) => {
@@ -20,5 +21,5 @@ module.exports = {
         console.error(errorMessage);
         return false;
     }
-}
+};
 
