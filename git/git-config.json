@@ -11,6 +11,16 @@
       "description": "Show changes staged for commit (alias for --staged)"
     },
     {
+      "action": "branch",
+      "aliases": ["br", "b"],
+      "description": "List, create, or modify branches"
+    },
+    {
+      "action": "checkout",
+      "aliases": ["ch", "co"],
+      "description": "Switch branches or restore working tree files"
+    },
+    {
       "action": "log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'",
       "aliases": ["lol"],
       "description": "Pretty print logs in one line"
