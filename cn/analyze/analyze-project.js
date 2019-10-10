@@ -19,28 +19,31 @@ function promiseToReadFile(file, resolve, reject) {
     }
 }
 
+function selectFile(files) {
+    if (files.length > 1) {
+       return inquirer
+            .prompt([
+                {
+                    type: 'list',
+                    name: 'file',
+                    message: `Multiple matching files found, which one would you like to use?`,
+                    choices: files
+                }
+            ]).then(answers => answers.file);
+
+    } else {
+        return new Promise.resolve(files[0]);
+    }
+
+}
+
 function getPlayerSettings() {
     return new Promise((resolve, reject) => {
         find.file(projectConfig, './', (files) => {
-                if (files.length) {
-                    const filesString = files.map((file, idx) => `${idx}: ${file}`).join('\n');
-                    if (files.length > 1) {
-                        const fileIndex = inquirer
-                            .prompt([
-                                {
-                                    type: 'number',
-                                    name: 'fileIndex',
-                                    message: `Multiple ProjectSettings.asset files found, which one would you like to use?\n ${filesString}`,
-                                }
-                            ]).then(answers => {
-                                promiseToReadFile(files[answers.fileIndex],resolve, reject);
-                            });
-
-                    } else {
-                        promiseToReadFile(files[0], resolve, reject);
-                    }
-                } else {
-                    reject('Could not find project config file');
+            if (files.length) {
+                selectFile(files).then(file => promiseToReadFile(file, resolve, reject));
+            } else {
+                reject('Could not find project config file');
                     console.error(chalk.red(`Could not find ${projectConfig} file. Are you running this from a game directory?`));
                 }
             }
