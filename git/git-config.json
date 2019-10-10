@@ -6,6 +6,11 @@
       "description": "Record changes to the repository"
     },
     {
+      "action": "commit --amend  --no-edit",
+      "aliases": ["amend"],
+      "description": "Amend previous commit with staged changes (Will rewrite commit hash)"
+    },
+    {
       "action": "diff --cached",
       "aliases": ["dc", "ds"],
       "description": "Show changes staged for commit (alias for --staged)"
