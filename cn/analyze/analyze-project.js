@@ -1,14 +1,13 @@
 const {verifyScriptingBackend} = require('./check-scripting-backend');
 const {projectConfig, targets} = require('../cn-remediation-config.json');
-const {readConfigFile} = require('./utils');
-const checkScriptingBackend = require('./check-scripting-backend');
+const {readConfigFile, selectFile} = require('./utils');
 const {verifyAndroidTargetArchitecture} = require('./check-target-architecture');
 const {verifyAbsenceOfFiles} = require('./verify-absence-of-files');
 const {verifyAndroidTargetAPI} = require('./check-android-target-api');
+const { verifyTermsOfUseUpToDate, verifyPrivacyPolicyUpToDate } = require('./check-tos-and-pp');
 const find = require('find');
 const Promise = require('promise');
 const chalk = require('chalk');
-const inquirer = require('inquirer');
 
 function promiseToReadFile(file, resolve, reject) {
     try {
@@ -17,24 +16,6 @@ function promiseToReadFile(file, resolve, reject) {
         console.error(chalk.red(`Error: ${e}`));
         reject('Could not read project config file')
     }
-}
-
-function selectFile(files) {
-    if (files.length > 1) {
-       return inquirer
-            .prompt([
-                {
-                    type: 'list',
-                    name: 'file',
-                    message: `Multiple matching files found, which one would you like to use?`,
-                    choices: files
-                }
-            ]).then(answers => answers.file);
-
-    } else {
-        return new Promise.resolve(files[0]);
-    }
-
 }
 
 function getPlayerSettings() {
@@ -52,7 +33,10 @@ function getPlayerSettings() {
 }
 
 module.exports = {
-    analyzeProject: (env) => {
+    analyzeProject: async (env) => {
+        await verifyTermsOfUseUpToDate();
+        await verifyPrivacyPolicyUpToDate();
+
         getPlayerSettings().then(playerSettings => {
             verifyScriptingBackend(playerSettings, 'Android', targets.Android);
             verifyScriptingBackend(playerSettings, 'iOS', targets.Android);

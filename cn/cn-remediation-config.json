@@ -6,6 +6,9 @@
       "branch": "develop"
     }
   ],
+  "privacyAndTerms": {
+    "expectedDate": "October 18 2018"
+  },
   "projectConfig": "ProjectSettings.asset",
   "targets": {
     "Android": {

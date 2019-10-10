@@ -5,10 +5,8 @@ module.exports = {
     verifyAbsenceOfFiles: (regexp) => {
         find.file(regexp, './', (files) => {
                 if (files.length) {
-                    files.forEach(file => {
-                        const error = chalk.red(`Found unwanted file matching ${regexp}: ${chalk.bold(file)}`);
-                        console.error(error)
-                    });
+                    const error = chalk.red(`Found {${files.length}} unwanted file matching ${regexp}`);
+                    console.error(error)
                 } else {
                     console.log(chalk.green(`No files found matching ${regexp}`));
                 }
