@@ -13,7 +13,7 @@ function verifyScriptingBackend(playerSettings, platform, target) {
         console.error(errorMessage);
         return false;
     }
-    console.log(chalk.green(`${platform} scripting matches target (${chalk.bold(scriptingBackends[target.scriptingBackend])})`));
+    console.log(chalk.green(`${platform} scripting backend matches target (${chalk.bold(scriptingBackends[target.scriptingBackend])})`));
     return true;
 }
 
