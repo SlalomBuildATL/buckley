@@ -91,7 +91,6 @@
       "testScript": "ls ~/.vim/janus",
       "description": "Vim distribution that comes packaged with several useful plugins and themes. Handy if you're a vim user",
       "tags": [
-        "test",
         "shell"
       ]
     },
@@ -101,7 +100,6 @@
       "script": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash",
       "description": "Node Version Manager. De-facto standard version manager for NodeJS. Other alternatives are n or fnm, each of which have their advantages.",
       "tags": [
-        "test",
         "frontend"
       ]
     },
