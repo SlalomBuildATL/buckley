@@ -5,15 +5,32 @@ const os = require('os');
 const fs = require('fs');
 const chalk = require('chalk');
 
+function getRepoUrl(env, repoData) {
+    const prefix = env.ssh ? 'git@github.com:' : 'https://github.com/';
+    return `${prefix}${repoData.repo}`;
+}
+
 function cloneRepos(env) {
     const projectName = env.project;
     const reposByProject = findReposByProject(projectName);
 
-    reposByProject.forEach(repo => {
-        let repoPath = (env.dir || path.resolve(`${os.homedir()}/dev/projects/${projectName}`)) + `/${repo.name}`;
+    reposByProject.forEach(repoData => {
+        let repoPath = (env.dir || path.resolve(`${os.homedir()}/dev/projects/${projectName}`)) + `/${repoData.name}`;
 
-        Git.Clone(repo.url, repoPath)
-            .then(clonedRepo => console.log(`Successfully cloned repo ${repo.name} into ${repoPath}`))
+        const cloneOptions = {
+            fetchOpts: {
+                callbacks: {
+                    certificateCheck: () => 0,
+                    credentials: (url, userName) => {
+                        return Git.Cred.sshKeyFromAgent(userName);
+                    }
+                }
+            }
+        };
+        const repoUrl = getRepoUrl(env, repoData);
+        console.log(`Cloning ${repoUrl} into ${repoPath}`);
+        Git.Clone(repoUrl, repoPath, cloneOptions)
+            .then(clonedRepo => console.log(`Successfully cloned repo ${repoData.name} into ${repoPath}`))
             .catch(err => console.error(`Error cloning repo: ${err}`))
     })
 }

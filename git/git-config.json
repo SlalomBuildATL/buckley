@@ -37,7 +37,7 @@
       "repos": [
         {
           "name": "Buckley",
-          "url": "https://github.com/SlalomBuildATL/buckley.git"
+          "repo": "SlalomBuildATL/buckley.git"
         }
       ]
     },
@@ -46,26 +46,25 @@
       "repos": [
         {
           "name": "Just Another Regular Arcade",
-          "url": "https://github.com/turnercode/cn-games_regular-show_jara.git"
+          "repo": "turnercode/cn-games_regular-show_jara.git"
 
         },
         {
           "name": "Adventure Time Ski Safari",
-          "url": "https://github.com/turnercode/cn-games_adventure-time_ski-safari.git"
+          "repo": "turnercode/cn-games_ttg_teeny-titans-2.git"
+        },
+        {
+          "name": "Ben 10 - Up to Speed",
+          "repo": "turnercode/cn-games_ben10_up-to-speed.git"
 
         },
         {
-          "name": "Ben 10: Up to Speed",
-          "url": "https://github.com/turnercode/cn-games_ben10_up-to-speed.git"
-
+          "name": "Ben 10 - Alien Experience",
+          "repo": "turnercode/cn-games_ben-10_alien-experience.git"
         },
         {
-          "name": "Ben 10: Alien Experience",
-          "url": "https://github.com/turnercode/cn-games_ben-10_alien-experience.git"
-        },
-        {
-          "name": "Teeny Titans - Teen Titans Go!",
-          "url": "https://github.com/turnercode/cn-games_ttg_teeny-titans-2.git"
+          "name": "Teeny Titans - Teen Titans Go",
+          "repo": "turnercode/cn-games_ttg_teeny-titans-2.git"
         }
       ]
     }
