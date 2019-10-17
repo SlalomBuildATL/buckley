@@ -19,5 +19,8 @@
     "iOS": {
       "scriptingBackend": 1
     }
+  },
+  "DFP": {
+    "expectedMD5Sum": "bead580e9ba12fee1abb8064d6cf7340"
   }
 }

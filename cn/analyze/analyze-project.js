@@ -8,6 +8,7 @@ const { verifyTermsOfUseUpToDate, verifyPrivacyPolicyUpToDate } = require('./che
 const find = require('find');
 const Promise = require('promise');
 const chalk = require('chalk');
+const { checkDFP } = require('./check-dfp');
 
 function promiseToReadFile(file, resolve, reject) {
     try {
@@ -34,6 +35,8 @@ function getPlayerSettings() {
 
 module.exports = {
     analyzeProject: async (env) => {
+        checkDFP();
+
         await verifyTermsOfUseUpToDate();
         await verifyPrivacyPolicyUpToDate();
 
@@ -42,10 +45,13 @@ module.exports = {
             verifyScriptingBackend(playerSettings, 'iOS', targets.Android);
             verifyAndroidTargetArchitecture(playerSettings, targets.Android);
             verifyAndroidTargetAPI(playerSettings, targets.Android);
-            verifyAbsenceOfFiles(/upsight/i);
-            verifyAbsenceOfFiles(/playhaven/i);
-            verifyAbsenceOfFiles(/kochava/i);
-            verifyAbsenceOfFiles(/comscore/i);
         });
+
+        verifyAbsenceOfFiles(/upsight/i);
+        verifyAbsenceOfFiles(/playhaven/i);
+        verifyAbsenceOfFiles(/kochava/i);
+        verifyAbsenceOfFiles(/comscore/i);
+
+
     }
 };

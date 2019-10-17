@@ -11,6 +11,7 @@ cli
     .parse(process.argv);
 
 
+
 function figletPrint(text) {
     let header = figlet.textSync('Cartoon Network', {
         horizontalLayout: 'default',
