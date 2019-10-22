@@ -14,7 +14,7 @@ const apis = {
 
 module.exports = {
     verifyAndroidTargetAPI: (playerSettings, targets) => {
-        if (targets.targetApi === playerSettings.AndroidTargetSdkVersion) {
+        if (targets.targetApi <= playerSettings.AndroidTargetSdkVersion) {
             console.log(chalk.green(`Android target API matches expected target (${chalk.bold(apis[targets.targetApi])})`));
             return true;
         }

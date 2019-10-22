@@ -47,11 +47,10 @@ module.exports = {
             verifyAndroidTargetAPI(playerSettings, targets.Android);
         });
 
-        verifyAbsenceOfFiles(/upsight/i);
-        verifyAbsenceOfFiles(/playhaven/i);
-        verifyAbsenceOfFiles(/kochava/i);
-        verifyAbsenceOfFiles(/comscore/i);
-
-
+        const useVerbose = !!env.verbose;
+        verifyAbsenceOfFiles(/upsight/i, useVerbose);
+        verifyAbsenceOfFiles(/playhaven/i, useVerbose);
+        verifyAbsenceOfFiles(/kochava/i, useVerbose);
+        verifyAbsenceOfFiles(/comscore/i, useVerbose);
     }
 };

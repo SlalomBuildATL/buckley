@@ -14,7 +14,7 @@ function checkDateInDocument(fileName, documentName) {
             if (match.length) {
                 const formattedDate = match[0].replace(/(st|nd|rd|th|,)/, '');
                 if (formattedDate === expectedDate) {
-                    console.log(chalk.green(`${documentName} Document Is Up to Date: (${chalk.bold(formattedDate)}`));
+                    console.log(chalk.green(`${documentName} Document Is Up to Date: (${chalk.bold(formattedDate)})`));
                     return true;
                 } else {
                     console.error(chalk.red(`${documentName} Document Is Not Up to Date (${chalk.bold(formattedDate)})`));
