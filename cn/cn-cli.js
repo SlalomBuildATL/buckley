@@ -8,6 +8,7 @@ if (!process.argv.slice(2).length) {
 
 cli
     .command('analyze', 'Analyze project for issues', {executableFile: 'analyze/cn-analyze.js'})
+    .command('sideload', 'Sideload a split binary (Android)', { executableFile: 'cn-sideload.js'})
     .parse(process.argv);
 
 
