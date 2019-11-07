@@ -18,7 +18,7 @@ function install_node() {
 function install_buckley() {
     mkdir -p ~/dev
     cd ~/dev
-    git clone https://github.com/FooBarRaz/buckley.git
+    git clone https://github.com/SlalomBuildATL/buckley.git
     cd buckley
     npm install -g .
     echo "Buckley was successfully installed. Please use 'bcli install --tags recommended' to install recommended packages"
