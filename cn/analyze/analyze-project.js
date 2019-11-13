@@ -50,6 +50,7 @@ module.exports = {
         const useVerbose = !!env.verbose;
         verifyAbsenceOfFiles(/upsight/i, useVerbose);
         verifyAbsenceOfFiles(/playhaven/i, useVerbose);
+        verifyAbsenceOfFiles(/PH/, useVerbose);
         verifyAbsenceOfFiles(/kochava/i, useVerbose);
         verifyAbsenceOfFiles(/comscore/i, useVerbose);
     }

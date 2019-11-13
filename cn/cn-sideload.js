@@ -24,7 +24,7 @@ function renameObbFile(obbFile, bundleVersionCode, packageName) {
 function sideload(env) {
     const {version, packageName, devicePath} = env;
     if (!version || !packageName || !devicePath) {
-        console.error(chalk.red("Please provide a bundle version code (--version) and package name (--package) and Android device path for OBB files (--device)"));
+        console.error(chalk.red("Please provide a bundle version code (--version) and package name (--packageName) and Android device path for OBB files (--device)"));
         process.exit(1);
     }
 
