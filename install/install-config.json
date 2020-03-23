@@ -109,7 +109,8 @@
       "script": "brew install wget",
       "description": "Command-line based file downloader – nicer API than cURL, and useful for scripting",
       "tags": [
-        "devops"
+        "devops",
+        "recommended"
       ]
     },
     {
@@ -150,6 +151,17 @@
       "tags": [
         "serverless",
         "aws"
+      ]
+    },
+    {
+      "name": "docker",
+      "testScript": "docker -v",
+      "script": "brew cask install docker",
+      "description": "Docker is a powerful too for containerizing applications and services",
+      "tags": [
+        "devops",
+        "recommended",
+        "containers"
       ]
     }
   ]
