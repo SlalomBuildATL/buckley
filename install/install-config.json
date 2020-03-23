@@ -130,6 +130,27 @@
       "tags": [
         "shell"
       ]
+    },
+    {
+      "name": "serverless",
+      "testScript": "command -v serverless",
+      "script": "curl -o- -L https://slss.io/install | bash",
+      "description": "The Serverless Framework gives you everything you need to develop, deploy, monitor and secure serverless applications on any cloud.",
+      "tags": [
+        "serverless",
+        "gcp",
+        "aws"
+      ]
+    },
+    {
+      "name": "aws-cli",
+      "testScript": "aws --version",
+      "script": "curl \"https://awscli.amazonaws.com/AWSCLIV2.pkg\" -o \"AWSCLIV2.pkg\" && sudo installer -pkg AWSCLIV2.pkg -target /",
+      "description": "AWS CLI for interacting with Amazon Web Services from the command line",
+      "tags": [
+        "serverless",
+        "aws"
+      ]
     }
   ]
 }
