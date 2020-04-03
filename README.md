@@ -14,7 +14,7 @@ Buckley is an opinionated CLI tool made to help Build Teams with rapid developme
 It automates the provisioning of workstations with a set of tools and configurations to minimize time spent onboarding new team members and share good practices via tooling. 
 
 # Installation
-To get started, run: 
+To get started, make sure you have git installed, then run: 
 
 `curl https://raw.githubusercontent.com/SlalomBuildATL/buckley/master/bootstrap.sh | bash`
 
