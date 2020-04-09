@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function install_node() {
+  set -e
   #install nvm
   if [[ "$OSTYPE" == "linux-gnu" ]]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
@@ -17,6 +18,7 @@ function install_node() {
   nvm install 10.13.0
   nvm use 10.13.0
   echo "Node.js/NPM was successfully installed via Node Version Manager (NVM). Visit https://github.com/nvm-sh/nvm for more information on how to use NVM."
+  set +e
 }
 
 function install_nvm_via_homebrew() {
