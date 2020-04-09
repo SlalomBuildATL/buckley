@@ -17,8 +17,8 @@ function install_node() {
   fi
 
   # setup node
-  nvm install 10.13.0
-  nvm use 10.13.0
+  nvm install 12.16.2
+  nvm use 12.16.2
   echo "Node.js/NPM was successfully installed via Node Version Manager (NVM). Visit https://github.com/nvm-sh/nvm for more information on how to use NVM."
   set +e
 }
