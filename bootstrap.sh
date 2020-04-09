@@ -23,7 +23,10 @@ function install_nvm_via_homebrew() {
   if ! command -v brew; then
     echo "Installing Homebrew Package Manager"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
   fi
+  brew update
+  brew install nvm
 }
 
 function install_buckley() {
