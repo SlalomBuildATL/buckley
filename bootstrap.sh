@@ -31,7 +31,9 @@ function install_nvm_via_homebrew() {
   brew install nvm
 
   # setup nvm
-  source $(brew --prefix nvm)/nvm.sh
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ]  && . "/usr/local/opt/nvm/nvm.sh" #this loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ]  && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm" #this loads nvm bash completion
 }
 
 function install_buckley() {
@@ -39,6 +41,7 @@ function install_buckley() {
   echo "Buckley was successfully installed. Please use 'bcli install --tags recommended' to install recommended packages"
 
 }
+
 
 #check for npm installation
 if ! command -v npm; then
