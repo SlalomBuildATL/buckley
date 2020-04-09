@@ -20,7 +20,7 @@ function findMatchingPackages(allPackages, names) {
 }
 
 
-function action(env) {
+async function action(env) {
     if (env.list) {
         listPackages(packageConfig.packages);
     } else {
@@ -45,41 +45,48 @@ function action(env) {
 
         console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
         if (!env.dry) {
-            installablePackages.forEach(installPackage);
+            for (const pkg of installablePackages) {
+                await installPackage(pkg);
+            }
         }
     }
 }
 
 function installPackage(pkg) {
-    if (isInstalled(pkg)) {
-        console.log(chalk.yellow.bold(`${pkg.name} is already installed`));
-    } else {
-        const prefix = `install:${pkg.name}`;
-        const {cmd, args} = getSpawnCommand(pkg);
-        const proc = spawn(cmd, args);
+    return new Promise((resolve, reject) => {
+        if (isInstalled(pkg)) {
+            console.log(chalk.yellow.bold(`${pkg.name} is already installed`));
+            resolve(0)
+        } else {
+            console.log(chalk.blue(`Installing ${pkg.name}`))
+            const prefix = `install:${pkg.name}`;
+            const {cmd, args} = getSpawnCommand(pkg);
+            const proc = spawn(cmd, args);
 
-        proc.stdout.on('data', (data) => {
-            console.log(`${chalk.blue.bold(prefix)}::${data}`);
-        });
+            proc.stdout.on('data', (data) => {
+                console.log(`${chalk.blue.bold(prefix)}::${data}`);
+            });
 
-        proc.stderr.on('data', (data) => {
-            console.error(`${chalk.red.bold(prefix)}::${data}`);
-        });
+            proc.stderr.on('data', (data) => {
+                console.error(`${chalk.red.bold(prefix)}::${data}`);
+            });
 
-        proc.on('close', (code) => {
-            if (code === 0) {
-                console.log(`${chalk.green.bold(prefix)}::Installation successful`)
-            } else {
-                console.error(`${chalk.red.bold(prefix)}::Installation failed`)
-            }
-        });
-    }
+            proc.on('close', (code) => {
+                if (code === 0) {
+                    console.log(`${chalk.green.bold(prefix)}::Installation successful`)
+                    resolve(code)
+                } else {
+                    console.error(`${chalk.red.bold(prefix)}::Installation failed`)
+                    reject(code)
+                }
+            });
+        }
+    });
 }
 
 function isInstalled(pkg) {
     if (pkg.testScript) {
-        const result = spawnSync(pkg.testScript, {shell: true});
-        return result.status === 0;
+        return spawnSync(pkg.testScript, {shell: true}).status === 0;
     }
     if (pkg.testCommand) {
         const {cmd, args} = pkg.testCommand;
@@ -100,4 +107,4 @@ function getSpawnCommand(pkg) {
 
 }
 
-module.exports  = { action, installPackage };
+module.exports = {action, installPackage};
