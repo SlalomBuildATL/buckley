@@ -27,11 +27,7 @@ function install_nvm_via_homebrew() {
 }
 
 function install_buckley() {
-  mkdir -p ~/dev
-  cd ~/dev
-  git clone https://github.com/SlalomBuildATL/buckley.git
-  cd buckley
-  npm install -g .
+  npm install -g buckley
   echo "Buckley was successfully installed. Please use 'bcli install --tags recommended' to install recommended packages"
 
 }
