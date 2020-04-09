@@ -1,6 +1,6 @@
 {
-  "name": "bcli",
-  "version": "1.0.0",
+  "name": "buckley",
+  "version": "0.1.1",
   "description": "BuildCLI (Buckley)",
   "main": "index.js",
   "author": "raz.ali@slalom.com",
