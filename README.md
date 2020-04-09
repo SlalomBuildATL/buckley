@@ -25,15 +25,7 @@ If you just want to use buckley, use one of the following methods:
 If you have node installed, simply run:  
 ```$ npm install -g buckley```
 
-If you don't have node installed, run the following from your terminal (only `bash` or `zsh` are supported currently) 
-
-`$ curl https://raw.githubusercontent.com/SlalomBuildATL/buckley/master/bootstrap.sh | bash`  
-
-(Note: this will install HomeBrew (on MacOS) and NVM)
-
-
-Once `bcli` is installed, you can run `bcli --help` for a list of available commands.
-
+Once Buckley is installed, you can run `bcli` for a list of available commands.
 
 # Features
 ## Workstation Setup (`bcli install`)
