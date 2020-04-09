@@ -14,9 +14,22 @@ Buckley is an opinionated CLI tool made to help Build Teams with rapid developme
 It automates the provisioning of workstations with a set of tools and configurations to minimize time spent onboarding new team members and share good practices via tooling. 
 
 # Installation
-To get started, run: 
+## Contributors
 
-`curl https://raw.githubusercontent.com/SlalomBuildATL/buckley/master/bootstrap.sh | bash`
+If you're trying to develop buckley (🙏) simply clone this repo and from the repo root, run:   
+`$ npm install -g .`
+
+## Users
+If you just want to use buckley, use one of the following methods: 
+
+If you have node installed, simply run:  
+```$ npm install -g buckley```
+
+If you don't have node installed, run the following from your terminal (only `bash` or `zsh` are supported currently) 
+
+`$ curl https://raw.githubusercontent.com/SlalomBuildATL/buckley/master/bootstrap.sh | bash`  
+
+(Note: this will install HomeBrew (on MacOS) and NVM)
 
 
 Once `bcli` is installed, you can run `bcli --help` for a list of available commands.
