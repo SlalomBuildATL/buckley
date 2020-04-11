@@ -11,6 +11,7 @@ cli
     .option('-p, --project <name>', 'name of project')
     .option('-d, --dir <dirName>', 'absolute path to parent directory where repos will be cloned')
     .option('--ssh', 'use SSH to clone (HTTPS is default)')
+    .option('-i, --id', 'SSH identity to use for cloning')
     .action(cloneRepos);
 
 cli

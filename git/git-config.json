@@ -1,33 +1,49 @@
 {
-  "aliases" : [
+  "aliases": [
     {
       "action": "commit",
-      "aliases": ["ci", "cm"],
+      "aliases": [
+        "ci",
+        "cm"
+      ],
       "description": "Record changes to the repository"
     },
     {
       "action": "commit --amend  --no-edit",
-      "aliases": ["amend"],
+      "aliases": [
+        "amend"
+      ],
       "description": "Amend previous commit with staged changes (Will rewrite commit hash)"
     },
     {
       "action": "diff --cached",
-      "aliases": ["dc", "ds"],
+      "aliases": [
+        "dc",
+        "ds"
+      ],
       "description": "Show changes staged for commit (alias for --staged)"
     },
     {
       "action": "branch",
-      "aliases": ["br", "b"],
+      "aliases": [
+        "br",
+        "b"
+      ],
       "description": "List, create, or modify branches"
     },
     {
       "action": "checkout",
-      "aliases": ["ch", "co"],
+      "aliases": [
+        "ch",
+        "co"
+      ],
       "description": "Switch branches or restore working tree files"
     },
     {
       "action": "log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'",
-      "aliases": ["lol"],
+      "aliases": [
+        "lol"
+      ],
       "description": "Pretty print logs in one line"
     }
   ],
@@ -37,34 +53,8 @@
       "repos": [
         {
           "name": "Buckley",
-          "repo": "SlalomBuildATL/buckley.git"
-        }
-      ]
-    },
-    {
-      "name": "cn",
-      "repos": [
-        {
-          "name": "Just Another Regular Arcade",
-          "repo": "turnercode/cn-games_regular-show_jara.git"
-
-        },
-        {
-          "name": "Adventure Time Ski Safari",
-          "repo": "turnercode/cn-games_ttg_teeny-titans-2.git"
-        },
-        {
-          "name": "Ben 10 - Up to Speed",
-          "repo": "turnercode/cn-games_ben10_up-to-speed.git"
-
-        },
-        {
-          "name": "Ben 10 - Alien Experience",
-          "repo": "turnercode/cn-games_ben-10_alien-experience.git"
-        },
-        {
-          "name": "Teeny Titans - Teen Titans Go",
-          "repo": "turnercode/cn-games_ttg_teeny-titans-2.git"
+          "url": "https://github.com/SlalomBuildATL/buckley",
+          "private": true
         }
       ]
     }

@@ -15,7 +15,8 @@
     "lodash": "^4.17.15",
     "md5-file": "^4.0.0",
     "nodegit": "^0.26.2",
-    "promise": "^8.0.3"
+    "promise": "^8.0.3",
+    "simple-git": "^1.132.0"
   },
   "bin": {
     "bcli": "./index.js"
