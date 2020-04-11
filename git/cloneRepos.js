@@ -1,6 +1,6 @@
 const simpleGit = require('simple-git/promise');
 const {toSsh} = require("./gitUrlParser");
-const inquirer = require('inquirer');
+const {promptForUsernameAndPassword} = require("../common/prompts");
 const {toHttps} = require("./gitUrlParser");
 
 let userCredentials;
@@ -31,22 +31,8 @@ function getCredentials() {
     if (!!userCredentials) {
         return userCredentials;
     }
-    const questions = [
-        {
-            type: 'input',
-            name: 'username',
-            message: 'Please enter your username',
-            filter: (val) => val.split("@")[0]
-        },
-        {
-            type: 'password',
-            name: 'password',
-            message: 'Please enter your password'
-        }
-    ]
 
-    return inquirer
-        .prompt(questions)
+    return promptForUsernameAndPassword()
         .then(answers => {
             userCredentials = answers;
             return userCredentials
