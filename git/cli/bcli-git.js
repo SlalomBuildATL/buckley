@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const commander = require('commander');
-const { cloneRepos }  = require('./cloneRepos');
-const { configureAliases } = require('./configureGit');
+const {handleCloneReposCommand} = require("./cloneReposCommandHandler");
+const { cloneRepos }  = require('../cloneRepos');
+const { configureAliases } = require('../configureGit');
 
 const cli = new commander.Command();
 
@@ -12,7 +13,7 @@ cli
     .option('-d, --dir <dirName>', 'absolute path to parent directory where repos will be cloned')
     .option('--ssh', 'use SSH to clone (HTTPS is default)')
     .option('-i, --id', 'SSH identity to use for cloning')
-    .action(cloneRepos);
+    .action(handleCloneReposCommand);
 
 cli
     .command('config-aliases')
