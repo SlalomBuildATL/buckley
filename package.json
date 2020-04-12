@@ -14,6 +14,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "md5-file": "^4.0.0",
+    "node-fetch": "^2.6.0",
     "nodegit": "^0.26.2",
     "promise": "^8.0.3",
     "simple-git": "^1.132.0"

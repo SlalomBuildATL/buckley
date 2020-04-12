@@ -1,14 +1,25 @@
-const {projects} = require('./project-data')
+const QUERY_API = "https://f8kmxhnzaj.execute-api.us-east-1.amazonaws.com/dev/query"
+const fetch = require("node-fetch")
+
+const repoQueryByName = name => `{
+    projectConfiguration(name: "${name}") {
+        name
+        repos   {
+            name
+            url
+            private
+            sshRequired
+        }
+    }
+}
+`
+
 
 function fetchProjectDataByName(name) {
-    return new Promise((resolve, reject) => {
-        const projectData = projects.find(project => project.name.toLowerCase() === name.toLowerCase());
-        if (!!projectData) {
-            resolve(projectData)
-        } else {
-            reject(`Unable to locate data for project ${name}`)
-        }
-    })
+    let url = `${QUERY_API}?query=${repoQueryByName(name)}`;
+    return fetch(url)
+        .then(res => res.json())
+        .then(({ data }) => data.projectConfiguration)
 }
 
 module.exports = {fetchProjectDataByName}
