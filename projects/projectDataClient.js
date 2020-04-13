@@ -1,5 +1,5 @@
-const QUERY_API = "https://f8kmxhnzaj.execute-api.us-east-1.amazonaws.com/dev/query"
 const fetch = require("node-fetch")
+const QUERY_API = "https://f8kmxhnzaj.execute-api.us-east-1.amazonaws.com/dev/query"
 
 const repoQueryByName = name => `{
     projectConfiguration(name: "${name}") {
