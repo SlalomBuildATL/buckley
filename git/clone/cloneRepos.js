@@ -1,6 +1,6 @@
 const simpleGit = require('simple-git/promise');
 const {toSsh} = require("./gitUrlParser");
-const {promptForUsernameAndPassword} = require("../common/prompts");
+const {promptForUsernameAndPassword} = require("../../common/prompts");
 const {toHttps} = require("./gitUrlParser");
 
 let userCredentials;

@@ -17,7 +17,8 @@
     "node-fetch": "^2.6.0",
     "nodegit": "^0.26.2",
     "promise": "^8.0.3",
-    "simple-git": "^1.132.0"
+    "simple-git": "^1.132.0",
+    "ssh-config": "^4.0.2"
   },
   "bin": {
     "bcli": "./index.js"

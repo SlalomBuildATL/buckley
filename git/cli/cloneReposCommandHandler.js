@@ -1,4 +1,4 @@
-const {cloneRepos} = require("../cloneRepos");
+const {cloneRepos} = require("../clone/cloneRepos");
 const {fetchProjectDataByName} = require("../../projects/projectDataClient");
 const os = require('os');
 
