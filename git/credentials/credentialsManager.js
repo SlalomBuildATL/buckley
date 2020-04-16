@@ -115,7 +115,7 @@ const addSshKeyPrompt = async (args) => {
             message: "enter a name for the ssh key",
             default: "id_rsa",
             validate: validateIdFile,
-            when: !args.name
+            when: !args.name || typeof  args.name === 'function' // because command env includes a name property
         },
         {
             name: "comment",

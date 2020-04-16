@@ -17,7 +17,6 @@ function toHttps(url) {
         const [user, rest] = url.split('@');
         const [domain,repo] = rest.split(':');
         return `https://${domain}/${repo}`;
-
     } else {
         return `${url}${url.endsWith('.git') ? '' : '.git'}`
     }
