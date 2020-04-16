@@ -1,21 +1,35 @@
 const simpleGit = require('simple-git/promise');
+const {selectIdentityFile} = require("../credentials/credentialsManager");
 const {toSsh} = require("./gitUrlParser");
 const {promptForUsernameAndPassword} = require("../../common/prompts");
 const {toHttps} = require("./gitUrlParser");
+const os = require('os');
+const {addKeyToConfigFile} = require("../credentials/credentialsManager");
+const {idExistsInConfigFile} = require("../credentials/credentialsManager");
+const fs = require('fs');
+const {getHostById} = require("../credentials/credentialsManager");
 
 let userCredentials;
+let identityFile;
 
+const getIdentityFile = () => {
+    return identityFile
+        ? identityFile
+        : selectIdentityFile()
+            .then(response => {
+                identityFile = response;
+                return identityFile;
+            })
+}
 
 const getCredentials = () => {
-    if (!!userCredentials) {
-        return userCredentials;
-    }
-
-    return promptForUsernameAndPassword()
-        .then(answers => {
-            userCredentials = answers;
-            return userCredentials
-        })
+    return userCredentials
+        ? userCredentials
+        : promptForUsernameAndPassword()
+            .then(answers => {
+                userCredentials = answers;
+                return userCredentials
+            });
 };
 
 const reformatRepoUrlWithCredentials = (url, credentials) => {
@@ -37,7 +51,26 @@ const cloneViaHttps = async (repoUrl, repoPath, repoData) => {
     cloneUrl(reformattedRepoUrl, repoPath, repoData);
 };
 
-const cloneViaSsh = (repoData, dir, id) => {
+function modifyRepoUrl(repoUrl, id) {
+    const host = getHostById(id)
+    return toSsh(repoUrl).replace(/^git@.*\:/, `git@${host}:`)
+}
+
+const cloneViaSsh = async (repoData, dir, id) => {
+    if (id) {
+        id = id.replace(/\.pub$/, '')
+        const idFilePath = `${os.homedir()}/.ssh/${id}`;
+        if (fs.existsSync(idFilePath)) {
+            if (!idExistsInConfigFile(id)) {
+                await addKeyToConfigFile({name: id, filepath: idFilePath})
+            }
+        }
+        const url = modifyRepoUrl(repoData.url, id)
+        await cloneUrl(url, `${dir}/${repoData.name}`, repoData)
+    } else {
+        id = await getIdentityFile()
+        await cloneViaSsh(repoData, dir, id)
+    }
     /*
     if id supplied -- make sure file exists
     make sure it is in config file
@@ -45,7 +78,6 @@ const cloneViaSsh = (repoData, dir, id) => {
         list ids and prompt user to select one
         recurse
      */
-
 };
 
 const cloneRepos = async (repos, dir, ssh, id) => {
@@ -57,8 +89,7 @@ const cloneRepos = async (repos, dir, ssh, id) => {
         if (repoData.private) {
             if (ssh || repoData.sshRequired) {
                 //flow for ssh credentials
-                cloneViaSsh(repoData, dir, id)
-                console.log("SSH FLow not implemented")
+                await cloneViaSsh(repoData, dir, id)
             } else {
                 await cloneViaHttps(repoUrl, repoPath, repoData);
             }
