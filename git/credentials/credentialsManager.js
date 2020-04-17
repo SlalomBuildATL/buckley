@@ -4,6 +4,7 @@ const chalk = require('chalk')
 const inquirer = require('inquirer')
 const {execSync} = require('child_process')
 const SSHConfig = require('ssh-config')
+const clipboardy = require('clipboardy');
 
 
 const listSshKeys = () => {
@@ -97,6 +98,11 @@ const generateSshKey = async ({name, comment, passphrase, host}) => {
     const command = `ssh-keygen -t rsa -b 4096 -C ${comment} -f ${filePath} -N ${passphrase || `''`}`
     console.log(execSync(command).toString('utf8'))
 
+    if (fs.existsSync(`${filePath}.pub`)) {
+        const file = fs.readFileSync(`${filePath}.pub`).toString('utf8');
+        clipboardy.write(file).then(() => console.log(`Your public key was copied to your clipboard`));
+    }
+
     // add ssh key to config file
     await addKeyToConfigFile({name, host, filePath})
 }
@@ -115,7 +121,7 @@ const addSshKeyPrompt = async (args) => {
             message: "enter a name for the ssh key",
             default: "id_rsa",
             validate: validateIdFile,
-            when: !args.name || typeof  args.name === 'function' // because command env includes a name property
+            when: !args.name || typeof args.name === 'function' // because command env includes a name property
         },
         {
             name: "comment",
