@@ -75,11 +75,11 @@ async function action(env) {
         installablePackages = _.uniq(installablePackages);
     }
 
+    console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
     if (env.list) {
         listPackages(installablePackages)
     }
 
-    console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
     if (!env.dry) {
         for (const pkg of installablePackages) {
             await installPackage(pkg);
