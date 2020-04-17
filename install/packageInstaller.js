@@ -13,7 +13,7 @@ const SUPPORTED_OPERATING_SYSTEMS = [
 function listPackages(packages) {
     const table = new Table({
         head: ['Name', 'Description', 'Tags'],
-        colWidths: [25, 75, 100]
+        colWidths: [25, 100, 75]
     });
     packages
         .map(({name, description, tags}) => ([name, description, tags]))
@@ -51,6 +51,7 @@ async function action(env) {
 
     if (env.project) {
         installablePackages = await fetchProjectPackagesByName(env.project)
+            .then(({packages}) => packages)
             .catch(err => {
                 console.log(chalk.red(err))
                 process.exit(1)

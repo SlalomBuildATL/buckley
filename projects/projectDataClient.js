@@ -42,7 +42,7 @@ function fetchProjectData(query) {
             } else if (message) {
                 throw message
             } else if (data && data.projectConfiguration) {
-                return data.projectConfiguration.packages || [];
+                return data.projectConfiguration
             } else {
                 throw 'No data found for given project'
             }
