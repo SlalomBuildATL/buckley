@@ -3,13 +3,22 @@ const {spawn, spawnSync} = require('child_process');
 const chalk = require('chalk');
 const packageConfig = require('./install-config');
 const {fetchProjectPackagesByName} = require("../projects/projectDataClient");
+const Table = require('cli-table')
+
 
 const SUPPORTED_OPERATING_SYSTEMS = [
     {system: "Mac OS", value: "darwin"}
 ];
 
 function listPackages(packages) {
-    console.table(packages.map(pkg => _.pick(pkg, ['name', 'description', 'tags'])));
+    const table = new Table({
+        head: ['Name', 'Description', 'Tags'],
+        colWidths: [25, 75, 100]
+    });
+    packages
+        .map(({name, description, tags}) => ([name, description, tags]))
+        .forEach(row => table.push(row));
+    console.log(table.toString());
 }
 
 function findMatchingPackages(allPackages, names) {
