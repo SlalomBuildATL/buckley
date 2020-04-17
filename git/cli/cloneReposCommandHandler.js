@@ -1,9 +1,9 @@
 const {cloneRepos} = require("../clone/cloneRepos");
-const {fetchProjectDataByName} = require("../../projects/projectDataClient");
+const {fetchProjectReposByName} = require("../../projects/projectDataClient");
 const os = require('os');
 
 function handleCloneReposCommand({project, dir, ssh, id}) {
-    fetchProjectDataByName(project)
+    fetchProjectReposByName(project)
         .then(({repos, name}) => {
             console.log(`Found (${repos.length}) repos: [${repos.map(repo => repo.name)}]`)
             const path = dir || `${os.homedir()}/dev/projects/${name}`;

@@ -13,13 +13,46 @@ const repoQueryByName = name => `{
     }
 }
 `
+const packageQueryByName = name => `{
+    projectConfiguration(name: "${name}") {
+        name
+        packages   {
+            name
+            command {
+                cmd
+                args
+            }
+            script
+            testScript
+            description
+            tags
+        }
+    }
+}
+`
 
 
-function fetchProjectDataByName(name) {
-    let url = `${QUERY_API}?query=${repoQueryByName(name)}`;
+function fetchProjectData(query) {
+    let url = `${QUERY_API}?query=${query}`;
     return fetch(url)
         .then(res => res.json())
-        .then(({ data }) => data.projectConfiguration)
+        .then(({data, errors, message}) => {
+            if (errors) {
+                throw errors.map(error => error.message).join(' | ')
+            } else if (message) {
+                throw message
+            } else if (data) {
+                return data.projectConfiguration.packages;
+            }
+        })
 }
 
-module.exports = {fetchProjectDataByName}
+function fetchProjectPackagesByName(name) {
+    return fetchProjectData(packageQueryByName(name));
+}
+
+function fetchProjectReposByName(name) {
+    return fetchProjectData(repoQueryByName(name))
+}
+
+module.exports = {fetchProjectReposByName, fetchProjectPackagesByName}

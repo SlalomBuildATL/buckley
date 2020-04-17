@@ -4,10 +4,11 @@ const { action } = require('./packageInstaller');
 
 const cli = new commander.Command();
 cli
-    .option('-l, --list', 'list all options')
     .option('-t, --tags <tagNames>', 'install packages with tags (comma-separated)')
     .option('-n, --names <names>', 'install packages by name (case-insensitive, comma-separated)')
     .option('-a, --all', 'installs all packages')
+    .option('-p, --project <projectName>', 'install packages for a specific Build project (this overrides above flags)')
+    .option('-l, --list', 'list all matching packages')
     .option('-d, --dry', 'do a dry-run without installing anything')
     .description('installs packages onto your system')
     .action(action);

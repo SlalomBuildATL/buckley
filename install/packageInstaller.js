@@ -1,9 +1,12 @@
-const fs = require('fs');
 const _ = require('lodash');
 const {spawn, spawnSync} = require('child_process');
 const chalk = require('chalk');
-const path = require('path');
 const packageConfig = require('./install-config');
+const {fetchProjectPackagesByName} = require("../projects/projectDataClient");
+
+const SUPPORTED_OPERATING_SYSTEMS = [
+    {system: "Mac OS", value: "darwin"}
+];
 
 function listPackages(packages) {
     console.table(packages.map(pkg => _.pick(pkg, ['name', 'description', 'tags'])));
@@ -20,12 +23,30 @@ function findMatchingPackages(allPackages, names) {
 }
 
 
-async function action(env) {
-    if (env.list) {
-        listPackages(packageConfig.packages);
+function checkOS() {
+    if (SUPPORTED_OPERATING_SYSTEMS.some(os => os.value === process.platform)) {
+        return true;
     } else {
-        let installablePackages = [];
+        console.log(chalk.red(`Unsupported Operating System`))
+        console.log(chalk.red(
+            `bcli install is currently only supported on [${SUPPORTED_OPERATING_SYSTEMS.map(os => os.system)}]`
+        ));
+        process.exit(1)
+    }
+}
 
+async function action(env) {
+
+    checkOS();
+    let installablePackages = [];
+
+    if (env.project) {
+        installablePackages = await fetchProjectPackagesByName(env.project)
+            .catch(err => {
+                console.log(chalk.red(err))
+                process.exit(1)
+            });
+    } else {
         if (env.all) {
             installablePackages = packageConfig.packages;
         }
@@ -41,13 +62,18 @@ async function action(env) {
             installablePackages = installablePackages.concat(packageConfig.packages.filter(pkg => _.intersection(pkg.tags, requiredTags).length > 0))
         }
 
-        installablePackages = _.uniq(installablePackages);
 
-        console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
-        if (!env.dry) {
-            for (const pkg of installablePackages) {
-                await installPackage(pkg);
-            }
+        installablePackages = _.uniq(installablePackages);
+    }
+
+    if (env.list) {
+        listPackages(installablePackages)
+    }
+
+    console.log(chalk.blue.bold(`Found (${installablePackages.length}) matching packages`));
+    if (!env.dry) {
+        for (const pkg of installablePackages) {
+            await installPackage(pkg);
         }
     }
 }
