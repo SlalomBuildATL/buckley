@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const cli = require('commander');
 const figlet = require('figlet');
-const { exec }= require('child_process')
 const version = require('./package.json').version;
 
 if (!process.argv.slice(2).length) {
