@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "raz.ali@slalom.com",
   "license": "MIT",
+  "scripts":{
+    "postinstall": "node postinstall.js"
+  },
   "dependencies": {
     "chalk": "^2.4.2",
     "cli-table": "^0.3.1",
