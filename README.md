@@ -20,9 +20,8 @@ If you're trying to develop buckley (🙏) simply clone this repo and from the r
 `$ npm install -g .`
 
 ## Users
-If you just want to use buckley, use one of the following methods: 
+If you just want to use buckley, make sure you have node installed, then run:  
 
-If you have node installed, simply run:  
 ```$ npm install -g buckley```
 
 Once Buckley is installed, you can run `bcli` for a list of available commands.
